@@ -1,0 +1,41 @@
+{
+  "name": "ecommerce",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "moment": "^2.24.0",
+    "native-base": "^2.11.0",
+    "prop-types": "^15.6.2",
+    "react": "16.6.3",
+    "react-native": "0.58.3",
+    "react-native-awesome-alerts": "^1.2.0",
+    "react-native-gesture-handler": "^1.0.15",
+    "react-native-linear-gradient": "^2.5.3",
+    "react-native-modal-datetime-picker": "^6.0.0",
+    "react-native-paper": "^2.11.1",
+    "react-native-shimmer": "^0.5.0",
+    "react-native-slideshow": "^1.0.1",
+    "react-native-vector-icons": "^6.2.0",
+    "react-navigation": "^3.1.2",
+    "react-navigation-material-bottom-tabs": "^1.0.0",
+    "react-redux": "^6.0.0",
+    "redux": "^4.0.1",
+    "redux-logger": "^3.0.6",
+    "redux-promise-middleware": "^6.1.0"
+  },
+  "devDependencies": {
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "24.0.0",
+    "jest": "24.0.0",
+    "metro-react-native-babel-preset": "0.51.1",
+    "react-test-renderer": "16.6.3"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
