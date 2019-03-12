@@ -1,9 +1,10 @@
 import axios from "axios";
+import { server } from "../../../utils/server";
 
 export const getProducts = param => {
   let url = "";
   if (param === undefined) {
-    url = "http://192.168.0.61:3333/api/v1/products?page=1&perPage=4";
+    url = `${server.url}/api/v1/products?page=1&perPage=4`;
   } else {
     url = param;
   }
@@ -21,7 +22,7 @@ export const getProduct = param => {
     type: "GET_PRODUCT",
     payload: axios({
       method: "get",
-      url: `http://192.168.0.61:3333/api/v1/product/${param}`
+      url: `${server.url}/api/v1/product/${param}`
     })
   };
 };

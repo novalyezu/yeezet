@@ -1,11 +1,12 @@
 import axios from "axios";
+import { server } from "../../../utils/server";
 
 export const getFullProfile = (user_id, token) => {
   return {
     type: "GET_FULL_PRORILE",
     payload: axios({
       method: "get",
-      url: `http://192.168.0.61:3333/api/v1/profile/${user_id}`,
+      url: `${server.url}/api/v1/profile/${user_id}`,
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -18,7 +19,7 @@ export const updateProfile = (body, token) => {
     type: "UPDATE_PROFILE",
     payload: axios({
       method: "post",
-      url: "http://192.168.0.61:3333/api/v1/profile",
+      url: `${server.url}/api/v1/profile`,
       data: body,
       headers: {
         Authorization: `Bearer ${token}`

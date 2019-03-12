@@ -42,7 +42,8 @@ class Register extends Component {
         const auth = this.props.auth;
         AsyncStorage.setItem("token", auth.access_token.token);
         AsyncStorage.setItem("refreshToken", auth.access_token.refreshToken);
-        this.props.navigation.navigate("Account");
+        this.props.navigation.goBack();
+        this.props.navigation.navigate("Home");
       })
       .catch(err => {
         console.log("error :v Register " + err);
@@ -59,7 +60,6 @@ class Register extends Component {
               <Item regular style={styles.input}>
                 <Input
                   placeholder="Username"
-                  autoFocus={true}
                   onChangeText={text => this.setState({ username: text })}
                 />
               </Item>

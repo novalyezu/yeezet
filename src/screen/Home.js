@@ -41,6 +41,7 @@ import { getProducts, getProduct } from "../publics/redux/actions/products";
 
 import "../data";
 import { getProfile, newToken } from "../publics/redux/actions/auth";
+import { getCarts } from "../publics/redux/actions/carts";
 
 class Home extends Component {
   constructor() {
@@ -107,6 +108,7 @@ class Home extends Component {
         const auth = this.props.auth;
         AsyncStorage.setItem("token", auth.access_token.token);
         AsyncStorage.setItem("refreshToken", auth.access_token.refreshToken);
+        this.getCart();
         this.getProfile()
           .then(res => {})
           .catch(err => {
@@ -132,6 +134,11 @@ class Home extends Component {
         .catch(err => {
           console.log("error :v " + err);
         });
+      this.getCart()
+        .then(res => {})
+        .catch(err => {
+          console.log("error :v " + err);
+        });
     }
   }
 
@@ -147,6 +154,12 @@ class Home extends Component {
         hasMore: this.props.products.hasMore
       });
     }
+  };
+
+  getCart = async () => {
+    const token = await AsyncStorage.getItem("token");
+    const auth = this.props.auth;
+    await this.props.dispatch(getCarts(token, auth.data.id));
   };
 
   loadMoreData = async () => {
@@ -278,7 +291,8 @@ class Home extends Component {
   );
 
   render() {
-    let totalItem = 0;
+    let totalItem =
+      this.props.carts.carts != undefined ? this.props.carts.carts.length : 0;
 
     const backgroundColorVar = this.animatedValue.interpolate({
       inputRange: [0, 0.5, 1],
@@ -483,7 +497,8 @@ class Home extends Component {
 const mapStateToProps = state => {
   return {
     products: state.products,
-    auth: state.auth
+    auth: state.auth,
+    carts: state.carts
   };
 };
 

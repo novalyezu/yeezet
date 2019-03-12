@@ -7,7 +7,8 @@ import {
   Dimensions,
   ActivityIndicator,
   ToastAndroid,
-  Alert
+  Alert,
+  AsyncStorage
 } from "react-native";
 import {
   View,
@@ -25,7 +26,7 @@ import {
 } from "native-base";
 import { connect } from "react-redux";
 import { getProduct } from "../publics/redux/actions/products";
-import { addToCart } from "../publics/redux/actions/carts";
+import { addToCart, getCarts } from "../publics/redux/actions/carts";
 
 import LinearGradient from "react-native-linear-gradient";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -68,6 +69,12 @@ class DetailProduct extends Component {
     await this.props.dispatch(getProduct(this.product_id));
   };
 
+  getCart = async () => {
+    const token = await AsyncStorage.getItem("token");
+    const auth = this.props.auth;
+    await this.props.dispatch(getCarts(token, auth.data.id));
+  };
+
   formatUsd = num => {
     if (num !== undefined) {
       return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
@@ -103,6 +110,11 @@ class DetailProduct extends Component {
         })
       );
       if (addNew) {
+        this.getCart()
+          .then()
+          .catch(err => {
+            console.log(err);
+          });
         this.setState(
           {
             visible: true
@@ -155,7 +167,8 @@ class DetailProduct extends Component {
   };
 
   render() {
-    let totalItem = 0;
+    let totalItem =
+      this.props.carts.carts != undefined ? this.props.carts.carts.length : 0;
     return (
       <Container>
         {this.props.products.isLoading ? (
@@ -256,7 +269,8 @@ class DetailProduct extends Component {
 const mapStateToProps = state => {
   return {
     products: state.products,
-    auth: state.auth
+    auth: state.auth,
+    carts: state.carts
   };
 };
 

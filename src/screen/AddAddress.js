@@ -137,6 +137,7 @@ class AddAddress extends Component {
               <Item regular style={styles.input}>
                 <Input
                   placeholder="Label"
+                  autoFocus={true}
                   onChangeText={text => this.setState({ label: text })}
                 />
               </Item>
@@ -146,7 +147,6 @@ class AddAddress extends Component {
               <Item regular style={styles.input}>
                 <Input
                   placeholder="Name"
-                  autoFocus={true}
                   onChangeText={text => this.setState({ name: text })}
                 />
               </Item>

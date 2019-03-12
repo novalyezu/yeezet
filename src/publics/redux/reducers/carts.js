@@ -138,6 +138,12 @@ export default (carts = (state = initialState, action) => {
         totalPrice: 0
       });
 
+    case "EMPTY_CART":
+      return Object.assign({}, state, {
+        carts: [],
+        totalPrice: 0
+      });
+
     default:
       return state;
   }

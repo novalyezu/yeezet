@@ -20,6 +20,7 @@ import Login from "./Login";
 import { logout } from "../publics/redux/actions/auth";
 import { getFullProfile } from "../publics/redux/actions/profile";
 import { getAddress } from "../publics/redux/actions/address";
+import { emptyCart } from "../publics/redux/actions/carts";
 
 class Account extends Component {
   constructor(props) {
@@ -35,9 +36,9 @@ class Account extends Component {
 
   componentDidMount() {
     if (this.props.auth.isAuth) {
+      this.getMainAdd();
       this.getFullProfile();
       this.getAddress();
-      this.getMainAdd();
     }
   }
 
@@ -105,6 +106,7 @@ class Account extends Component {
         onPress: () => {
           this.doLogout()
             .then(res => {
+              this.props.dispatch(emptyCart());
               AsyncStorage.removeItem("token");
               AsyncStorage.removeItem("refreshToken");
               this.props.navigation.navigate("Home");

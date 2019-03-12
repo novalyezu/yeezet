@@ -37,7 +37,10 @@ class EditProfile extends Component {
       this.setState({
         user_id: this.param.user_id,
         name: this.param.name,
-        birth_date: Momen(this.param.birth_date).format("YYYY-MM-DD"),
+        birth_date:
+          this.param.birth_date != null
+            ? Momen(this.param.birth_date).format("YYYY-MM-DD")
+            : this.state.birth_date,
         gender: this.param.gender
       });
     }

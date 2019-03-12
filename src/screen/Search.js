@@ -27,6 +27,7 @@ import {
 } from "native-base";
 
 import axios from "axios";
+import { server } from "../utils/server";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 export default class Search extends Component {
@@ -78,7 +79,7 @@ export default class Search extends Component {
   search = () => {
     axios({
       method: "post",
-      url: "http://192.168.0.61:3333/api/v1/products/search",
+      url: `${server.url}/api/v1/products/search`,
       data: {
         keyword: this.state.search,
         offset: this.offset
@@ -103,7 +104,7 @@ export default class Search extends Component {
 
     axios({
       method: "post",
-      url: `http://192.168.0.61:3333/api/v1/products/search`,
+      url: `${server.url}/api/v1/products/search`,
       data: {
         keyword: this.state.search,
         offset: this.offset + 1

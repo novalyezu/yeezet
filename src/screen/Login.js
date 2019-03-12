@@ -21,7 +21,8 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 
 import { connect } from "react-redux";
 
-import { login } from "../publics/redux/actions/auth";
+import { login, getProfile } from "../publics/redux/actions/auth";
+import { getCarts } from "../publics/redux/actions/carts";
 
 class Login extends Component {
   constructor() {
@@ -38,12 +39,25 @@ class Login extends Component {
         const auth = this.props.move.auth;
         AsyncStorage.setItem("token", auth.access_token.token);
         AsyncStorage.setItem("refreshToken", auth.access_token.refreshToken);
-        this.props.move.navigation.navigate("Home");
+        this.getProfile().then(res => {
+          this.props.move.navigation.navigate("Home");
+        });
       })
       .catch(err => {
         console.log("error login :v " + err);
         Alert.alert("Warning", "Email or password is wrong!");
       });
+  };
+
+  getProfile = async () => {
+    const token = await AsyncStorage.getItem("token");
+    await this.props.dispatch(getProfile(token));
+  };
+
+  getCart = async () => {
+    const token = await AsyncStorage.getItem("token");
+    const auth = this.props.move.auth;
+    await this.props.dispatch(getCarts(token, auth.data.id));
   };
 
   doLogin = async () => {

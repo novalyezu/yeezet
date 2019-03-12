@@ -90,7 +90,7 @@ class Cart extends Component {
   };
 
   handleMin = (item, index) => () => {
-    if (item.qty === 0) {
+    if (item.qty === 1) {
       this.deleteItem(item.products.name, item.id)();
     } else {
       let body = {
